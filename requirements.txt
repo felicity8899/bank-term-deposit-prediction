@@ -1,0 +1,27 @@
+# Bank Term Deposit Prediction — dependencies
+# Floors are the versions this project was built and verified with
+# (Python 3.12). Install with:  pip install -r requirements.txt
+
+# Data handling & modelling (notebook, train.py)
+pandas>=3.1.1
+numpy>=2.5.4
+scipy>=1.18.1
+scikit-learn>=1.9.1
+xgboost>=3.4.1
+
+# Plotting (notebook EDA)
+matplotlib>=3.11.2
+seaborn>=0.13.2
+
+# Web service (predict.py) — the only deps the Docker image strictly needs
+fastapi>=0.162.2
+uvicorn>=0.54.0
+pydantic>=2.14.3
+
+# Test client (predict_test.py)
+requests>=2.34.2
+
+# Notebook authoring / execution
+nbformat>=5.11.1
+nbconvert>=7.17.2
+ipykernel>=7.4.0
