@@ -20,6 +20,7 @@ import pickle
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 MODEL_PATH = Path(__file__).resolve().parent / "model.bin"
@@ -58,6 +59,56 @@ class Client(BaseModel):
 
 
 app = FastAPI(title="Bank Term Deposit Prediction")
+
+LANDING_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bank Term Deposit Prediction — live service</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 44rem; margin: 3rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+  code, pre { background: #f2f2f2; border-radius: 6px; }
+  code { padding: 0.1rem 0.35rem; }
+  pre { padding: 0.9rem; overflow-x: auto; }
+  a { color: #0b5cad; }
+</style>
+</head>
+<body>
+<h1>Bank Term Deposit Prediction</h1>
+<p>This service is <strong>live</strong>. It serves an XGBoost model (test ROC AUC
+0.806) that predicts whether a bank client will subscribe to a term deposit,
+trained on the UCI Bank Marketing dataset. Midterm project for the
+DataTalksClub Machine Learning Zoomcamp.</p>
+
+<h2>Try it</h2>
+<ul>
+  <li><a href="/docs"><strong>Interactive API docs (Swagger UI)</strong></a> —
+      open <code>POST /predict</code>, click <em>Try it out</em>, and send the
+      example client.</li>
+  <li><a href="/health">Health check</a> — returns <code>{"status": "ok"}</code>.</li>
+</ul>
+
+<h2>Example request</h2>
+<pre>curl -X POST https://bank-term-deposit-prediction-s1y8.onrender.com/predict \\
+  -H 'Content-Type: application/json' \\
+  -d '{"age": 58, "job": "retired", "marital": "married",
+       "education": "secondary", "default": "no", "balance": 2143,
+       "housing": "no", "loan": "no", "contact": "cellular",
+       "day": 5, "month": "mar", "campaign": 1, "pdays": 180,
+       "previous": 2, "poutcome": "success"}'</pre>
+<p>Response: <code>{"subscribe_probability": 0.81, "subscribe": true}</code></p>
+
+<p>Note: the first request after a period of inactivity can take up to a
+minute — the free hosting tier sleeps when idle. Code, notebook and full
+documentation:
+<a href="https://github.com/felicity8899/bank-term-deposit-prediction">github.com/felicity8899/bank-term-deposit-prediction</a></p>
+</body>
+</html>"""
+
+
+@app.get("/", response_class=HTMLResponse)
+def index():
+    return LANDING_PAGE
 
 
 @app.get("/health")
