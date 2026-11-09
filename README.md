@@ -5,7 +5,7 @@
 Predicting which bank clients will subscribe to a term deposit, so a phone
 marketing campaign can call the right people first instead of everyone.
 
-**Live demo:** LIVE_URL_PLACEHOLDER
+**Live demo:** https://bank-term-deposit-prediction-s1y8.onrender.com
 
 ---
 
@@ -158,7 +158,7 @@ docker run -p 9696:9696 bank-term-deposit
 ### 5.6 Cloud deployment
 
 The same Docker image runs on Render (free web service, Docker runtime from
-this repo). **Live URL:** LIVE_URL_PLACEHOLDER
+this repo). **Live URL:** https://bank-term-deposit-prediction-s1y8.onrender.com
 
 ## 6. Project structure
 
